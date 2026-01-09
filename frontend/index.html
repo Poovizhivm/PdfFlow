@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PDFFlow - Free online PDF tools. Split, merge, compress PDFs and convert documents instantly.">
+    <meta name="keywords" content="PDF tools, split PDF, merge PDF, compress PDF, PDF converter">
+    <title>PDFFlow - Your Complete PDF Toolkit</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modal.css">
+    
+    <!-- PDF Libraries (CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>PDF Tools</h1>
+        </header>
+
+        <!-- Tools Grid -->
+        <main class="tools-grid">
+            <!-- Column 1 -->
+            <div class="tool-item" data-tool="split">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 7h18M3 12h18M3 17h18M8 3v18"/>
+                    </svg>
+                </div>
+                <span class="tool-name">Split</span>
+            </div>
+
+            <div class="tool-item" data-tool="merge">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                </div>
+                <span class="tool-name">Merge</span>
+            </div>
+
+            <div class="tool-item" data-tool="compress">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                </div>
+                <span class="tool-name">Compress</span>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="tool-item" data-tool="pagenumbers">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="2"/>
+                        <path d="M9 9h6M9 12h6M9 15h4"/>
+                    </svg>
+                </div>
+                <span class="tool-name">Add Page Numbers</span>
+            </div>
+
+            <div class="tool-item" data-tool="jpgtopdf">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <path d="m21 15-5-5L5 21"/>
+                    </svg>
+                </div>
+                <span class="tool-name">JPG to PDF</span>
+            </div>
+
+            <div class="tool-item" data-tool="pngtopdf">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <path d="m21 15-5-5L5 21"/>
+                    </svg>
+                </div>
+                <span class="tool-name">PNG to PDF</span>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>All files are processed securely for maximum privacy • PDFFlow © 2026</p>
+        </footer>
+    </div>
+
+    <!-- Modal Container -->
+    <div id="toolModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Area Template (Hidden) -->
+    <template id="uploadTemplate">
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📁</div>
+            <p class="upload-text">Drag & drop your file here</p>
+            <p class="upload-or">or</p>
+            <input type="file" id="fileInput" style="display: none;">
+            <button class="btn btn-secondary" id="chooseFileBtn">Choose File</button>
+        </div>
+        <div class="file-list" id="fileList"></div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+        <div class="status-message" id="statusMessage"></div>
+    </template>
+
+    <!-- Split Options Template -->
+    <template id="splitOptionsTemplate">
+        <div class="options-container">
+            <label for="splitOption">Split Options:</label>
+            <select id="splitOption" class="form-select">
+                <option value="all">Extract all pages as separate PDFs</option>
+                <option value="range">Split by page range</option>
+            </select>
+            <input type="text" id="pageRange" class="form-input" placeholder="e.g., 1-3, 5, 7-9" style="display: none; margin-top: 10px;">
+        </div>
+    </template>
+
+    <!-- Page Number Options Template -->
+    <template id="pageNumberOptionsTemplate">
+        <div class="options-container">
+            <label for="position">Position:</label>
+            <select id="position" class="form-select">
+                <option value="bottom-center">Bottom Center</option>
+                <option value="bottom-right">Bottom Right</option>
+                <option value="bottom-left">Bottom Left</option>
+                <option value="top-center">Top Center</option>
+                <option value="top-right">Top Right</option>
+                <option value="top-left">Top Left</option>
+            </select>
+        </div>
+    </template>
+
+    <!-- Process Button Template -->
+    <template id="processButtonTemplate">
+        <button class="btn btn-primary" id="processBtn" disabled>Process</button>
+    </template>
+
+    <!-- JavaScript Files -->
+    <script src="js/uiHandlers.js"></script>
+    <script src="js/pdfOperations.js"></script>
+    <script src="js/apiService.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

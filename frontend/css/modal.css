@@ -1,0 +1,648 @@
+/* ========================================
+   MODAL OVERLAY
+   ======================================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========================================
+   MODAL CONTENT
+   ======================================== */
+
+.modal-content {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.3s ease;
+}
+
+/* Custom scrollbar for modal */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f1f3f5;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #adb5bd;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #868e96;
+}
+
+/* ========================================
+   MODAL HEADER
+   ======================================== */
+
+.modal-title {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    padding-right: 30px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2em;
+    line-height: 1;
+    cursor: pointer;
+    color: #999;
+    background: none;
+    border: none;
+    padding: 5px 10px;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+.close-btn:hover {
+    color: #333;
+    transform: scale(1.1);
+}
+
+.close-btn:active {
+    transform: scale(0.95);
+}
+
+/* ========================================
+   MODAL BODY
+   ======================================== */
+
+.modal-body {
+    margin-bottom: 0;
+}
+
+/* ========================================
+   UPLOAD AREA
+   ======================================== */
+
+.upload-area {
+    border: 2px dashed #dee2e6;
+    border-radius: 12px;
+    padding: 50px 30px;
+    text-align: center;
+    margin: 20px 0;
+    background: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.upload-area:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.upload-area.drag-over {
+    background: #e7f5ff;
+    border-color: #339af0;
+    border-style: solid;
+}
+
+.upload-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    user-select: none;
+}
+
+.upload-text {
+    font-size: 1.1em;
+    color: #495057;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.upload-or {
+    color: #868e96;
+    margin: 10px 0 15px;
+    font-size: 0.95em;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.btn {
+    display: inline-block;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    user-select: none;
+    line-height: 1.5;
+}
+
+/* Primary Button */
+.btn-primary {
+    background: #339af0;
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-primary:hover {
+    background: #228be6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(51, 154, 240, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Secondary Button */
+.btn-secondary {
+    background: #f8f9fa;
+    color: #495057;
+    border: 1px solid #dee2e6;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+/* Disabled Button */
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.btn:disabled:hover,
+.btn.disabled:hover {
+    transform: none;
+}
+
+/* ========================================
+   FORM INPUTS
+   ======================================== */
+
+.options-container {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.options-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #495057;
+    font-size: 0.95em;
+}
+
+.form-select,
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1em;
+    background: white;
+    color: #212529;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.form-select:focus,
+.form-input:focus {
+    outline: none;
+    border-color: #339af0;
+    box-shadow: 0 0 0 3px rgba(51, 154, 240, 0.1);
+}
+
+.form-select:hover,
+.form-input:hover {
+    border-color: #adb5bd;
+}
+
+.form-input::placeholder {
+    color: #adb5bd;
+}
+
+/* ========================================
+   FILE LIST
+   ======================================== */
+
+.file-list {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.file-item-display {
+    background: #f8f9fa;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+    animation: slideInRight 0.3s ease;
+}
+
+.file-item-display:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.file-item-display span {
+    font-size: 0.95em;
+    color: #495057;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.remove-file {
+    color: #fa5252;
+    cursor: pointer;
+    font-weight: bold;
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    padding: 0 5px;
+    margin-left: 10px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.remove-file:hover {
+    color: #c92a2a;
+    transform: scale(1.2);
+}
+
+/* ========================================
+   LOADING SPINNER
+   ======================================== */
+
+.loading {
+    display: none;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.loading.active {
+    display: block;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #339af0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+.loading p {
+    color: #868e96;
+    font-size: 0.95em;
+}
+
+/* ========================================
+   STATUS MESSAGES
+   ======================================== */
+
+.status-message {
+    display: none;
+    margin-top: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.95em;
+    animation: slideInUp 0.3s ease;
+}
+
+.status-message.active {
+    display: block;
+}
+
+.status-message.success {
+    background: #d3f9d8;
+    color: #2b8a3e;
+    border: 1px solid #8ce99a;
+}
+
+.status-message.error {
+    background: #ffe3e3;
+    color: #c92a2a;
+    border: 1px solid #ffa8a8;
+}
+
+.status-message.info {
+    background: #e7f5ff;
+    color: #1971c2;
+    border: 1px solid #74c0fc;
+}
+
+.status-message.warning {
+    background: #fff3bf;
+    color: #e67700;
+    border: 1px solid #ffe066;
+}
+
+/* ========================================
+   PROGRESS BAR
+   ======================================== */
+
+.progress-container {
+    width: 100%;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+    height: 8px;
+    display: none;
+}
+
+.progress-container.active {
+    display: block;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #339af0 0%, #228be6 100%);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+/* ========================================
+   INFO BOX
+   ======================================== */
+
+.info-box {
+    background: #f8f9fa;
+    border-left: 3px solid #339af0;
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.info-box p {
+    margin: 0;
+    color: #495057;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+.info-box.warning {
+    border-left-color: #ff922b;
+    background: #fff4e6;
+}
+
+.info-box.error {
+    border-left-color: #ff6b6b;
+    background: #ffe3e3;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 30px 25px;
+        max-width: 90%;
+    }
+    
+    .modal-title {
+        font-size: 1.5em;
+    }
+    
+    .upload-area {
+        padding: 40px 20px;
+    }
+    
+    .btn {
+        padding: 12px 30px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .modal {
+        padding: 10px;
+    }
+    
+    .modal-content {
+        padding: 25px 20px;
+        max-width: 100%;
+        border-radius: 12px;
+    }
+    
+    .modal-title {
+        font-size: 1.4em;
+        margin-bottom: 20px;
+    }
+    
+    .close-btn {
+        top: 10px;
+        right: 10px;
+        font-size: 1.8em;
+    }
+    
+    .upload-area {
+        padding: 30px 15px;
+    }
+    
+    .upload-icon {
+        font-size: 2.5em;
+    }
+    
+    .upload-text {
+        font-size: 1em;
+    }
+    
+    .btn {
+        padding: 12px 25px;
+        font-size: 0.95em;
+    }
+    
+    .file-item-display {
+        padding: 10px 12px;
+    }
+    
+    .file-item-display span {
+        font-size: 0.9em;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus states */
+.btn:focus-visible,
+.form-select:focus-visible,
+.form-input:focus-visible {
+    outline: 2px solid #339af0;
+    outline-offset: 2px;
+}
+
+.close-btn:focus-visible {
+    outline: 2px solid #339af0;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .modal,
+    .modal-content,
+    .file-item-display,
+    .status-message,
+    .btn,
+    .spinner {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .upload-area {
+        border-width: 3px;
+    }
+    
+    .btn-primary {
+        border: 2px solid #1971c2;
+    }
+    
+    .form-select,
+    .form-input {
+        border-width: 2px;
+    }
+}
+
+/* ========================================
+   DARK MODE SUPPORT (Optional)
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+    /* Uncomment to enable dark mode
+    .modal-content {
+        background: #25262b;
+        color: #c1c2c5;
+    }
+    
+    .modal-title {
+        color: #ffffff;
+    }
+    
+    .upload-area {
+        background: #1a1b1e;
+        border-color: #373a40;
+    }
+    
+    .form-select,
+    .form-input {
+        background: #25262b;
+        border-color: #373a40;
+        color: #c1c2c5;
+    }
+    
+    .file-item-display {
+        background: #1a1b1e;
+        border-color: #373a40;
+        color: #c1c2c5;
+    }
+    */
+}
