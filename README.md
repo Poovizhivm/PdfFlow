@@ -62,7 +62,6 @@ That's it! No build process, no dependencies to install.
 ## 📁 Project Structure
 ```
 pdfflow/
-└── frontend/
     ├── index.html              # Main HTML file
     ├── css/
     │   ├── style.css           # Main styles
